@@ -2,6 +2,7 @@ package com.marulov.secondhand.service;
 
 import com.marulov.secondhand.converter.user.UserDtoConverter;
 import com.marulov.secondhand.dto.user.CreateUserRequest;
+import com.marulov.secondhand.dto.user.UpdateUserRequest;
 import com.marulov.secondhand.dto.user.UserDto;
 import com.marulov.secondhand.exception.UserNotFoundException;
 import com.marulov.secondhand.model.User;
@@ -22,9 +23,8 @@ public class UserService {
         return userRepository.findAll().stream().map(userDtoConverter::convert).collect(Collectors.toList());
     }
 
-    public UserDto getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+    public UserDto getUserById(String mail) {
+        User user = findUserByMail(mail);
         return userDtoConverter.convert(user);
     }
 
@@ -35,5 +35,28 @@ public class UserService {
                 .lastName(createUserRequest.getLastName())
                 .build();
         return userDtoConverter.convert(userRepository.save(user));
+    }
+
+    public UserDto updateUser(String mail, UpdateUserRequest updateUserRequest) {
+        User user = findUserByMail(mail);
+        user.setFirstName(updateUserRequest.getFirstName());
+        user.setLastName(updateUserRequest.getLastName());
+        return userDtoConverter.convert(userRepository.save(user));
+    }
+
+    public void deactiveUser(String mail) {
+        User user = findUserByMail(mail);
+        user.setActive(false);
+        userRepository.save(user);
+    }
+
+    public void deleteUser(String mail) {
+        User user = findUserByMail(mail);
+        userRepository.delete(user);
+    }
+
+    private User findUserByMail(String mail) {
+        return userRepository.findByMail(mail)
+                .orElseThrow(() -> new UserNotFoundException("User with mail " + mail + " not found"));
     }
 }
