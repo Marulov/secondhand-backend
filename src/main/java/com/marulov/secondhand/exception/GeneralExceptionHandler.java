@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @Override
     @NotNull
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @NotNull HttpHeaders headers,
                                                                   HttpStatus status, @NotNull WebRequest request) {
@@ -43,5 +44,10 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> customerNotFoundHandExceptionHandler(UserNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotActiveException.class)
+    public ResponseEntity<?> customerNotActiveExceptionHandler(UserNotActiveException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

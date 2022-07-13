@@ -9,9 +9,13 @@ public class UserDtoConverter {
 
     public UserDto convert(User from) {
         return UserDto.builder()
+                .id(from.getId())
                 .mail(from.getMail())
                 .firstName(from.getFirstName())
                 .lastName(from.getLastName())
+                .createdDate(from.getCreatedDate())
+                .updatedDate(from.getUpdatedDate())
+                .active(from.getActive())
                 .build();
     }
 }

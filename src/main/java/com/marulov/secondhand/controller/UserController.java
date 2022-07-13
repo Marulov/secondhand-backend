@@ -3,7 +3,6 @@ package com.marulov.secondhand.controller;
 import com.marulov.secondhand.dto.user.CreateUserRequest;
 import com.marulov.secondhand.dto.user.UpdateUserRequest;
 import com.marulov.secondhand.dto.user.UserDto;
-import com.marulov.secondhand.model.User;
 import com.marulov.secondhand.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +21,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("{mail}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable("mail") String mail) {
-        return ResponseEntity.ok(userService.getUserById(mail));
+    @GetMapping("{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping
@@ -32,20 +31,26 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(createUserRequest));
     }
 
-    @PutMapping("{mail}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("mail") String mail, @RequestBody UpdateUserRequest updateUserRequest) {
-        return ResponseEntity.ok(userService.updateUser(mail ,updateUserRequest));
+    @PutMapping("{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+        return ResponseEntity.ok(userService.updateUser(id ,updateUserRequest));
     }
 
-    @PatchMapping("{mail}")
-    public ResponseEntity<Void> deactiveUser(@PathVariable("mail") String mail) {
-        userService.deactiveUser(mail);
+    @PatchMapping("{id}")
+    public ResponseEntity<Void> deactivateUser(@PathVariable("id") Long id) {
+        userService.deactivateUser(id);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("{mail}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("mail") String mail) {
-        userService.deleteUser(mail);
+    @PatchMapping("{id}/activate")
+    public ResponseEntity<Void> activateUser(@PathVariable("id") Long id) {
+        userService.activeUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
 }
