@@ -6,6 +6,8 @@ The technologies I used in this project are as follows::
 - Docker ve Dockercompose
 - MySQL
 - AWS
+- EC2
+- JUnit 5
 - Cognito
 - Spring Security
 - CQRS
