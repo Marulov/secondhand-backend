@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,4 +22,6 @@ public class User {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private Boolean active;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserDetails> userDetails;
 }
