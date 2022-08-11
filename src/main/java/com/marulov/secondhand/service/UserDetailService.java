@@ -1,8 +1,6 @@
 package com.marulov.secondhand.service;
 
 import com.marulov.secondhand.converter.userDetails.UserDetailsDtoConverter;
-import com.marulov.secondhand.dto.user.UpdateUserRequest;
-import com.marulov.secondhand.dto.user.UserDto;
 import com.marulov.secondhand.dto.userDetails.CreateUserDetailsRequest;
 import com.marulov.secondhand.dto.userDetails.UpdateUserDetailsRequest;
 import com.marulov.secondhand.dto.userDetails.UserDetailsDto;
@@ -11,6 +9,8 @@ import com.marulov.secondhand.model.User;
 import com.marulov.secondhand.model.UserDetails;
 import com.marulov.secondhand.repository.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserDetailService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailService.class);
 
     private final UserDetailsRepository userDetailsRepository;
     private final UserDetailsDtoConverter userDetailsDtoConverter;
@@ -62,7 +63,7 @@ public class UserDetailService {
         userDetailsRepository.delete(userDetails);
     }
 
-    protected UserDetails findUserDetailsById(Long id) {
+    private UserDetails findUserDetailsById(Long id) {
         return userDetailsRepository.findById(id).orElseThrow(() ->
                 new UserNotFoundException("UserDetails with Id " + id + " not found"));
     }

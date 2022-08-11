@@ -5,6 +5,7 @@ import com.marulov.secondhand.dto.user.UpdateUserRequest;
 import com.marulov.secondhand.dto.user.UserDto;
 import com.marulov.secondhand.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) {
-        return ResponseEntity.ok(userService.createUser(createUserRequest));
+        userService.createUser(createUserRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("{id}")
