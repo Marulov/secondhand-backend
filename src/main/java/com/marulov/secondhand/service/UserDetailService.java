@@ -63,6 +63,11 @@ public class UserDetailService {
         userDetailsRepository.delete(userDetails);
     }
 
+    public List<UserDetailsDto> findUserDetailsByUserId(Long userId) {
+        return userDetailsDtoConverter.convert(userDetailsRepository.findUserDetailsByUser_Id(userId).orElseThrow(() ->
+                new UserNotFoundException("UserDetails with user id " + userId + " not found")));
+    }
+
     private UserDetails findUserDetailsById(Long id) {
         return userDetailsRepository.findById(id).orElseThrow(() ->
                 new UserNotFoundException("UserDetails with Id " + id + " not found"));

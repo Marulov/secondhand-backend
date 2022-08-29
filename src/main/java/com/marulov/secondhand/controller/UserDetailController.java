@@ -44,4 +44,9 @@ public class UserDetailController {
         userDetailService.deleteUserDetails(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<UserDetailsDto>> getUserDetailsByUserId(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(userDetailService.findUserDetailsByUserId(userId));
+    }
 }
