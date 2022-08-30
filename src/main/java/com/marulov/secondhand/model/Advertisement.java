@@ -6,21 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDetails {
+@NoArgsConstructor
+public class Advertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String phoneNumber;
-    private String address;
-    private String city;
-    private String country;
-    private String postCode;
+    private String title;
+    private String description;
+    private BigDecimal price;
+    private LocalDateTime creationDate;
+    private LocalDateTime updateDate;
+    private String hashtag;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

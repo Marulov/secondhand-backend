@@ -22,6 +22,10 @@ public class User {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private Boolean active;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserDetails> userDetails;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Advertisement> advertisements;
 }
