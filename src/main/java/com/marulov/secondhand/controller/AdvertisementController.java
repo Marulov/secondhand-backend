@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/advertisement")
+@RequestMapping("api/v1/advertisements")
 @RequiredArgsConstructor
 public class AdvertisementController {
     private final AdvertisementService advertisementService;

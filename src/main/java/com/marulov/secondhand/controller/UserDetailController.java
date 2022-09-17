@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/userDetails")
+@RequestMapping("api/v1/user-details")
 @RequiredArgsConstructor
 public class UserDetailController {
 
@@ -34,12 +34,12 @@ public class UserDetailController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserDetailsDto> updateUserDetails(@PathVariable("id") Long id, @RequestBody UpdateUserDetailsRequest updateUserDetailsRequest) {
         return ResponseEntity.ok(userDetailService.updateUserDetails(id, updateUserDetailsRequest));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserDetails(@PathVariable("id") Long id) {
         userDetailService.deleteUserDetails(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
